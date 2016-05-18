@@ -5,6 +5,7 @@ cversion=c++0x
 CC = g++
 baseCFLAGS = -c -g -Wall -O4 -std=$(cversion)
 baseLDFLAGS = -g -L/usr/lib64 -std=$(cversion)
+threadlib= -pthread
 
 # find source and targets and set the object files
 src = $(wildcard source/*.cpp)
