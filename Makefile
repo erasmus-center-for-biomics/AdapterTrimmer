@@ -16,6 +16,7 @@ adapter_trim: $(obj)
 	-mkdir -p bin/
 	$(CC) $(obj) $(baseLDFLAGS) $(threadlib) \
 		-Irwwb \
+		-Iinclude \
 		-o bin/adapter_trim
 	
 	rm -r build
@@ -28,6 +29,6 @@ build/%.o: source/%.cpp
 	mkdir -p build
 	$(CC) $(baseCFLAGS) \
 		-Irwwb \
-		-Isource \
+		-Iinclude \
 		$(threadlib) \
 		source/$*.cpp -o $@
