@@ -27,12 +27,11 @@ namespace Biomics {
                 mismatches = 0 ;                     
                 for(std::size_t j=i; j<subject.size(); ++j) {
                     
-                    if(i-j >= query.size()) 
+                    if(j-i >= query.size())                         
                         break ;                        
                     
                     if(subject[j] != query[j-i]) {
                         mismatches += 1 ;
-                        
                         if(mismatches >= max_threshold){
                             ismatch = false ;
                             break ;
