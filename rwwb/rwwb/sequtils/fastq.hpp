@@ -99,7 +99,7 @@ namespace sequtils {
 			counter += 1 ;
 			reads[i].uid = counter ;
 			
-			std::err << reads[i].uid << "\t" << reads[i].name << std::endl ;
+			std::cerr << reads[i].uid << "\t" << reads[i].name << std::endl ;
 		}
 
 		// return the number of reads from a fastq.
