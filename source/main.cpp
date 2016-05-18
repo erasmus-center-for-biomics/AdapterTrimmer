@@ -68,7 +68,7 @@ int process_reads(std::istream& hin, std::ostream& hout, const std::vector< Biom
         for(std::size_t i=0; i<obtained; ++i){
             std::vector<char> tmp = std::vector<char>() ;
             std::transform(buffer[i].sequence.begin(), buffer[i].sequence.end(), tmp.begin(), rwwb::sequtils::base_to_char) ;
-            hout << "@" << buffer[i].name << std::endl << tmp << std::endl << "+" << std::endl << buffer[i].quality << std::endl ; 
+            //hout << "@" << buffer[i].name << std::endl << tmp << std::endl << "+" << std::endl << buffer[i].quality << std::endl ; 
         }
         
         // if we didn't get the expected number of reads move on
@@ -89,7 +89,9 @@ int main(int argc, char** argv) {
     
     // initialize the adapters
     std::vector<Biomics::SequenceMatcher<rwwb::sequtils::base_t> > adapters() ;
-    adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(rwwb::sequtils::string_to_base("AGATCGGAAGAG"), 1)) ;
+    adapters.push_back(
+        Biomics::SequenceMatcher<rwwb::sequtils::base_t>(rwwb::sequtils::string_to_base("AGATCGGAAGAG"), 1)
+        ) ;
     
     // 
     return_code = process_reads(std::cin, std::cout, adapters, 1000, 25) ;
