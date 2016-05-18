@@ -13,10 +13,10 @@ obj = $(patsubst source/%.cpp, build/%.o, $(src))
 all: adapter_trim
 
 adapter_trim: $(obj) 
-    -mkdir -p bin/
-    $(CC) $(obj) $(baseLDFLAGS) $(threadlib) \
+	-mkdir -p bin/
+	$(CC) $(obj) $(baseLDFLAGS) $(threadlib) \
 		-Irwwb \
-        -o bin/adapter_trim
+		-o bin/adapter_trim
 	
 	rm -r build
 
@@ -27,8 +27,7 @@ clean:
 build/%.o: source/%.cpp
 	mkdir -p build
 	$(CC) $(baseCFLAGS) \
-        -Irwwb \
-        -Isource \
-        $(threadlib) \
-        source/$*.cpp -o $@
-	
+		-Irwwb \
+		-Isource \
+		$(threadlib) \
+		source/$*.cpp -o $@
