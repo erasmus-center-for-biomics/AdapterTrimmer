@@ -4,6 +4,7 @@
 // STL
 #include <cstddef>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -70,7 +71,7 @@ namespace sequtils {
 		
 		// the number of reads obtained
 		std::size_t rval = counter ;
-
+		
 		// the l variable
 		std::string l = "" ;
 
@@ -97,6 +98,8 @@ namespace sequtils {
 			// set the uid
 			counter += 1 ;
 			reads[i].uid = counter ;
+			
+			std::err << reads[i].uid << "\t" << reads[i].name << std::endl ;
 		}
 
 		// return the number of reads from a fastq.
