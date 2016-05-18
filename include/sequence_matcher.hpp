@@ -34,7 +34,7 @@ namespace Biomics {
                     
                     if(subject[j] != query[j-i]) {
                         mismatches += 1 ;
-                        if(mismatches >= max_threshold){
+                        if(mismatches >= mismatch_threshold){
                             ismatch = false ;
                             break ;
                         }
