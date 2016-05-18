@@ -70,8 +70,6 @@ namespace sequtils {
 			// set the uid
 			counter += 1 ;
 			reads[i].uid = counter ;
-			
-			std::cerr << reads[i].uid << "\t" << reads[i].name << std::endl ;
 		}
 
 		// return the number of reads from a fastq.

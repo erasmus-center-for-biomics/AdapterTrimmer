@@ -45,7 +45,6 @@ int process_reads(std::istream& hin, std::ostream& hout, const std::vector< Biom
                     bases_left = tmp ;
                 }
             }
-            std::cerr << "Bases left:" << bases_left << std::endl ;
             
             // trim if necessary
             if(bases_left < buffer[i].sequence.size()) {
