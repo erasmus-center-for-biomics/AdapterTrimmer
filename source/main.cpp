@@ -39,7 +39,7 @@ int process_reads(std::istream& hin, std::istream& hout, const std::vector<Biomi
             bases_left = buffer[i].sequence.size() ;
             
             // match the adapters
-            for(std::size_t k=0; adapters.size(); ++k) {            
+            for(std::size_t k=0; k<adapters.size(); ++k) {            
                 std::size_t tmp = adapters[k].match(buffer[i].sequence) ;
                 if(tmp < bases_left) {
                     bases_left = tmp ;
@@ -67,7 +67,7 @@ int process_reads(std::istream& hin, std::istream& hout, const std::vector<Biomi
         // write the buffer to the output
         for(std::size_t i=0; i<obtained; ++i){
             std::vector<char> tmp = std::vector<char>() ;
-            std::transform(buffer[i].begin(), buffer[i].end(), tmp.begin(), rwwb::sequtils::base_to_char) ;
+            std::transform(buffer[i].sequence.begin(), buffer[i].sequence.end(), tmp.begin(), rwwb::sequtils::base_to_char) ;
             hout << "@" << buffer[i].name << std::endl << tmp << std::endl << "+" << std::endl << buffer[i].quality << std::endl ; 
         }
         
