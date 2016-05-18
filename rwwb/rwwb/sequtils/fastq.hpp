@@ -11,43 +11,11 @@
 
 // own headers
 #include <rwwb/sequtils/types.hpp> 
-#include <rwwb/sequtils/streamcounter.hpp> 
 
 namespace rwwb {
 
 namespace sequtils {
 	
-	bool fastq(std::istream &h, std::string &nm, std::vector<base_t> &seq, std::string &qual) {
-		std::string l = "" ;
-		
-		// name
-		nm = std::getline( h, l ).good() && !l.empty() ? l.substr(1) : "" ;
-		if( nm == "" ) 
-			return false ;
-
-		// sequence 
-		if( std::getline(h, l).good() ) {
-			seq = std::vector<base_t>( l.size(), -1 ) ;
-			std::transform(l.begin(), l.end(), seq.begin(), char_to_base ) ;
-		} else {
-			return false ;
-		}
-
-		// +
-		if( ! std::getline( h, l ).good() ) {		
-			return false ;
-		}
-
-		// quality
-		if( std::getline( h, l ).good() ) {
-			qual = l ;
-		} else { 
-			return false ;
-		}
-
-		return true ;
-	}
-
 	//
 	// A continuous reader with minimal copies
 	//
@@ -79,7 +47,9 @@ namespace sequtils {
 			
 			// read header
 			if(!std::getline(handle, l).good())
-				reads[i].name(l.substr(1)) ;
+				break ;
+			
+			reads[i].name = std::string(l.substr(1)) ;
 			
 			// sequence
 			if(!std::getline(handle, l).good())
@@ -93,7 +63,9 @@ namespace sequtils {
 				break ;
 
 			if(!std::getline(handle, l).good())
-				reads[i].quality(l) ;
+				break ;
+				
+			reads[i].quality = std::string(l) ;
 
 			// set the uid
 			counter += 1 ;
@@ -104,15 +76,6 @@ namespace sequtils {
 
 		// return the number of reads from a fastq.
 		return counter - rval ;
-	}
-
-	std::size_t reads_from_fastq(IStreamCounter& current, std::vector<read>& reads) {
-		return reads_from_fastq(current.handle, current.counter, reads);
-	}
-
-	std::size_t reads_from_fastq(ProtectedIStreamCounter& current, std::vector<read>& reads) {
-		std::lock_guard<std::mutex> lock(current.mutex) ;
-		return reads_from_fastq(current.handle, current.counter, reads);
 	}
 
 } ;
