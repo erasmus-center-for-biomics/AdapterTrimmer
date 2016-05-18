@@ -9,7 +9,7 @@
 // BOOST libraries
 
 // own libraries
-#include <sequence_matcher.hpp>
+#include "sequence_matcher.hpp"
 #include <rwwb/sequtils/types.hpp>
 #include <rwwb/sequtils/fastq.hpp>
 
