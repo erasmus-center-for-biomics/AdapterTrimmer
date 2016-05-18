@@ -99,6 +99,6 @@ int main(int argc, char** argv) {
     // 
     return_code = process_reads(std::cin, std::cout, adapters, 1000, 25) ;
       
-    //    
+    //
     return return_code ;
 }
