@@ -9,14 +9,14 @@
 // BOOST libraries
 
 // own libraries
-#include "sequence_matcher.hpp"
+#include <sequence_matcher.hpp>
 #include <rwwb/sequtils/types.hpp>
 #include <rwwb/sequtils/fastq.hpp>
 
 // Processes the reads in the input stream and writes them to the output stream
 //
 //
-int process_reads(std::istream& hin, std::istream& hout, const std::vector<Biomics::SequenceMatcher>& adapters, std::size_t buffersize, std::size_t min_bases_left) {
+int process_reads(std::istream& hin, std::istream& hout, const std::vector< Biomics::SequenceMatcher<rwwb::sequtils::base_t> >& adapters, std::size_t buffersize, std::size_t min_bases_left) {
     
     // prepare the read buffer
     rwwb::sequtils::read default_read = rwwb::sequtils::read() ;    
@@ -88,8 +88,8 @@ int main(int argc, char** argv) {
     int return_code = 0 ;
     
     // initialize the adapters
-    std::vector<Biomics::SequenceMatcher> adapters() ;
-    adapters.push_back(Biomics::SequenceMatcher("AGATCGGAAGAG", 1)) ;
+    std::vector<Biomics::SequenceMatcher<rwwb::sequtils::base_t> > adapters() ;
+    adapters.push_back(Biomics::SequenceMatcher(rwwb::sequtils::string_to_base("AGATCGGAAGAG"), 1)) ;
     
     // 
     return_code = process_reads(std::cin, std::cout, adapters, 1000, 25) ;
