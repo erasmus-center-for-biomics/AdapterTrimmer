@@ -57,6 +57,8 @@ namespace Biomics {
                     
         std::vector<T> sequence ;
         std::size_t score_threshold ;
+        
+      public:
         // Primary constructor
         //
         // 
