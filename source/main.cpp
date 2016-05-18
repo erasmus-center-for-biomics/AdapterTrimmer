@@ -67,7 +67,7 @@ int process_reads(std::istream& hin, std::ostream& hout, const std::vector< Biom
         
         // write the buffer to the output
         for(std::size_t i=0; i<obtained; ++i){
-            std::vector<char> tmp = std::vector<char>() ;
+            std::vector<char> tmp(buffer[i].sequence.size(), 'N') ;
             std::transform(buffer[i].sequence.begin(), buffer[i].sequence.end(), tmp.begin(), rwwb::sequtils::base_to_char) ;            
             hout << "@" << buffer[i].name << std::endl 
                 << std::string(tmp.begin(), tmp.end()) << std::endl 
