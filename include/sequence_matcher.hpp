@@ -12,7 +12,7 @@ namespace Biomics {
     //
     //            
     template<typename T>
-    std::size_t match(const std::vector<T>& subject, const std::vector<T>& query, std::size_t max_threshold) {
+    std::size_t vector_matcher(const std::vector<T>& subject, const std::vector<T>& query, std::size_t max_threshold) {
         
         //
         std::size_t match_location = subject.size() ;                                     
@@ -74,7 +74,7 @@ namespace Biomics {
         //
         //           
         std::size_t match(const std::vector<T>& s) const {
-            return match(s, sequence, score_threshold) ;                               
+            return vector_matcher<T>(s, sequence, score_threshold) ;                               
         }
                             
     } ;
