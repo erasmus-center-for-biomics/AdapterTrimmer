@@ -55,7 +55,7 @@ namespace sequtils {
 
 	typedef struct __read__ {
 		std::size_t uid ;
-		std::string id ;
+		std::string name ;
 		std::vector<base_t> sequence ;
 		std::string quality ;
 	} read ;
@@ -78,7 +78,7 @@ namespace sequtils {
 			
 			// read header
 			if(!std::getline(handle, l).good())
-				reads[i].id = l.substr(1) ;
+				reads[i].name = l.substr(1) ;
 			
 			// sequence
 			if(!std::getline(handle, l).good())
