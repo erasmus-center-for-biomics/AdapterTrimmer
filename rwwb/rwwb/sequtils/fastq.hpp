@@ -79,7 +79,7 @@ namespace sequtils {
 			
 			// read header
 			if(!std::getline(handle, l).good())
-				reads[i].name = std::string(l.substr(1)) ;
+				reads[i].name(l.substr(1)) ;
 			
 			// sequence
 			if(!std::getline(handle, l).good())
@@ -93,7 +93,7 @@ namespace sequtils {
 				break ;
 
 			if(!std::getline(handle, l).good())
-				reads[i].quality = std::string(l) ;
+				reads[i].quality(l) ;
 
 			// set the uid
 			counter += 1 ;
