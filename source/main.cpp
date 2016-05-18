@@ -88,7 +88,7 @@ int main(int argc, char** argv) {
     int return_code = 0 ;
     
     // initialize the adapters
-    std::vector<Biomics::SequenceMatcher<rwwb::sequtils::base_t> > adapters() ;
+    std::vector<Biomics::SequenceMatcher<rwwb::sequtils::base_t> > adapters ;
     adapters.push_back(
         Biomics::SequenceMatcher<rwwb::sequtils::base_t>(rwwb::sequtils::string_to_base("AGATCGGAAGAG"), 1)
         ) ;
