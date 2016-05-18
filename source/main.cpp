@@ -16,7 +16,7 @@
 // Processes the reads in the input stream and writes them to the output stream
 //
 //
-int process_reads(std::istream& hin, std::istream& hout, const std::vector<SequenceMatcher>& adapters, std::size_t buffersize, std::size_t min_bases_left) {
+int process_reads(std::istream& hin, std::istream& hout, const std::vector<Biomics::SequenceMatcher>& adapters, std::size_t buffersize, std::size_t min_bases_left) {
     
     // prepare the read buffer
     rwwb::sequtils::read default_read = rwwb::sequtils::read() ;    
@@ -88,8 +88,8 @@ int main(int argc, char** argv) {
     int return_code = 0 ;
     
     // initialize the adapters
-    std::vector<SequenceMatcher> adapters() ;
-    adapters.push_back(SequenceMatcher("AGATCGGAAGAG", 1)) ;
+    std::vector<Biomics::SequenceMatcher> adapters() ;
+    adapters.push_back(Biomics::SequenceMatcher("AGATCGGAAGAG", 1)) ;
     
     // 
     return_code = process_reads(std::cin, std::cout, adapters, 1000, 25) ;
