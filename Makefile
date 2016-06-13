@@ -18,6 +18,7 @@ adapter_trim: $(obj)
 	$(CC) $(obj) $(baseLDFLAGS) $(threadlib) \
 		-Irwwb \
 		-Iinclude \
+		-lboost_program_options \
 		-o bin/adapter_trim
 	
 	rm -r build
