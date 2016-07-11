@@ -134,7 +134,7 @@ int main(int argc, char** argv) {
     if(file_output == "-"){
         hout = std::cout ;
     } else {
-        hin = (std::ostream) std::ofstream(file_output, std::ifstream::out) ;
+        hout = (std::ostream) std::ofstream(file_output, std::ifstream::out) ;
     }
     if(file_adapters != "-"){
         
