@@ -116,6 +116,8 @@ int main(int argc, char** argv) {
     int return_code = 0 ;
     std::ifstream fin ;
     std::ofstream fout ;
+    
+    // activate exceptions for the streams
     fin.exceptions( std::ifstream::failbit | std::ifstream::badbit) ;
     fout.exceptions(std::ofstream::failbit | std::ofstream::badbit) ;
     
@@ -162,7 +164,7 @@ int main(int argc, char** argv) {
     // assign the input files
     if(file_input != "-"){
         try {
-            bool ok = fin.open(file_input.c_str(), std::ifstream::in) ;
+            fin.open(file_input.c_str(), std::ifstream::in) ;
         } catch (std::ifstream::failure e){
             std::cerr << "Could not open input file" << file_input << std::endl << std::endl ;
             std::cerr << "Usage" << std::endl ; 
@@ -188,18 +190,9 @@ int main(int argc, char** argv) {
     }
                 
     // adapters should be loaded from a file
-    if(file_adapters != ""){
-        
-        std::vector<std::vector<rwwb::sequtils::base_t> > base_t_sequences ;
-        
-        try {   
-            adapter_helper(base_t_sequences, file_adapters) ;
-        } catch (std::ifstream::failure e){
-            std::cerr << "Could not open adapter file" << file_adapters << std::endl << std::endl ;
-            std::cerr << "Usage" << std::endl ; 
-    		std::cerr << desc << std::endl; 
-	    	return 103 ;
-        }
+    if(file_adapters != ""){        
+        std::vector<std::vector<rwwb::sequtils::base_t> > base_t_sequences ; 
+        adapter_helper(base_t_sequences, file_adapters) ;
         for(std::size_t i=0; i<base_t_sequences.size(); ++i){
             adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(base_t_sequences[i], maximum_mismatches, minimum_matches)) ;    
         }
