@@ -116,7 +116,8 @@ int main(int argc, char** argv) {
     int return_code = 0 ;
     std::ifstream fin ;
     std::ofstream fout ;
-    file.exceptions( std::ifstream::failbit | std::ifstream::badbit | std::ofstream::failbit | std::ofstream::badbit);
+    fin.exceptions( std::ifstream::failbit | std::ifstream::badbit) ;
+    fout.exceptions(std::ofstream::failbit | std::ofstream::badbit) ;
     
     // the input parameters 
     std::string file_input = "-" ;
