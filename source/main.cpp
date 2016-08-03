@@ -117,11 +117,7 @@ int main(int argc, char** argv) {
     std::ifstream fin ;
     std::ofstream fout ;
     bool verbose = false ;   
-    
-    // activate exceptions for the streams
-    fin.exceptions( std::ifstream::failbit | std::ifstream::badbit) ;
-    fout.exceptions(std::ofstream::failbit | std::ofstream::badbit) ;
-    
+       
     // the input parameters 
     std::string file_input = "-" ;
     std::string file_output = "-" ;
@@ -181,24 +177,10 @@ int main(int argc, char** argv) {
         
     // assign the in and output files
     if(file_input != "-"){
-        try {
-            fin.open(file_input.c_str(), std::ifstream::in) ;
-        } catch (std::ifstream::failure e){
-            std::cerr << "Could not open input file " << file_input << std::endl << std::endl ;
-            std::cerr << "Usage" << std::endl ; 
-    		std::cerr << desc << std::endl; 
-	    	return 102 ;
-        }        
+        fin.open(file_input.c_str(), std::ifstream::in) ;
     }
     if(file_output != "-"){
-        try {   
-            fout.open(file_output, std::ifstream::out) ;
-        } catch (std::ofstream::failure e){
-            std::cerr << "Could not open output file " << file_output << std::endl << std::endl ;
-            std::cerr << "Usage" << std::endl ; 
-    		std::cerr << desc << std::endl; 
-	    	return 103 ;
-        }             
+        fout.open(file_output, std::ifstream::out) ;
     }
         
     // initialize the adapters
