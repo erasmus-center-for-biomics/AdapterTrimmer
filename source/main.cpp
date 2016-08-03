@@ -166,7 +166,7 @@ int main(int argc, char** argv) {
         try {
             fin.open(file_input.c_str(), std::ifstream::in) ;
         } catch (std::ifstream::failure e){
-            std::cerr << "Could not open input file" << file_input << std::endl << std::endl ;
+            std::cerr << "Could not open input file " << file_input << std::endl << std::endl ;
             std::cerr << "Usage" << std::endl ; 
     		std::cerr << desc << std::endl; 
 	    	return 102 ;
@@ -176,7 +176,7 @@ int main(int argc, char** argv) {
         try {   
             fout.open(file_output, std::ifstream::out) ;
         } catch (std::ofstream::failure e){
-            std::cerr << "Could not open output file" << file_output << std::endl << std::endl ;
+            std::cerr << "Could not open output file " << file_output << std::endl << std::endl ;
             std::cerr << "Usage" << std::endl ; 
     		std::cerr << desc << std::endl; 
 	    	return 103 ;
