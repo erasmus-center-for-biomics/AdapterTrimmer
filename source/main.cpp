@@ -88,7 +88,7 @@ int process_reads(std::istream& hin, std::ostream& hout, const std::vector< Biom
 //
 //
 //
-void adapter_helper(std::vector<rwwb::sequtils::base_t >& sequences, std::string file_adapters ) {
+void adapter_helper(std::vector< std::vector<rwwb::sequtils::base_t> >& sequences, std::string file_adapters ) {
     std::string label ;
     std::vector<rwwb::sequtils::base_t> seq ;
     auto parser = rwwb::sequtils::fasta() ;                
@@ -173,7 +173,7 @@ int main(int argc, char** argv) {
                 
     // adapters should be loaded from a file
     if(file_adapters != ""){
-        std::vector<rwwb::sequtils::base_t > base_t_sequences ;
+        std::vector<std::vector<rwwb::sequtils::base_t> > base_t_sequences ;
         adapter_helper(base_t_adapters, file_adapters) ;
         
         for(std::size_t i=0; i<base_t_sequences.size(); ++i){
