@@ -177,7 +177,7 @@ int main(int argc, char** argv) {
         adapter_helper(base_t_sequences, file_adapters) ;
         
         for(std::size_t i=0; i<base_t_sequences.size(); ++i){
-            adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(base_t_sequences[i], maximum_mismatches, minimum_matches) ;    
+            adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(base_t_sequences[i], maximum_mismatches, minimum_matches)) ;    
         }
     }  
         
