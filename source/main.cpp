@@ -158,18 +158,19 @@ int main(int argc, char** argv) {
 	}
     if(vm.count("verbose")){
         verbose = true ;
-        std::cerr << "Input file: " << file_input << std::endl ; 
-        std::cerr << "Output file: " << file_output << std::endl ;
-        std::cerr << "Adapter file: " << file_adapters << std::endl ;
-        std::cerr << "Adapter sequences on commandline: " << std::endl ;
+        std::cerr << "Parameters" << std::endl ;
+        std::cerr << ".. Input file: " << file_input << std::endl ; 
+        std::cerr << ".. Output file: " << file_output << std::endl ;
+        std::cerr << ".. Adapter file: " << file_adapters << std::endl ;
+        std::cerr << ".. Adapter sequences on commandline: " << std::endl ;
         for(std::size_t i=0; i<adapter_sequences.size(); ++i){
-            std::cerr << adapter_sequences[i] << std::endl ;
+            std::cerr << ".... " << adapter_sequences[i] << std::endl ;
         }
-        std::cerr << "Maximum number of mismatches: " << maximum_mismatches << std::endl ;
-        std::cerr << "Minimum number of matches: " << minimum_matches << std::endl ;
-        std::cerr << "Minimum read size remaining: " << minimum_bases_remaining << std::endl ;    
-        std::cerr << "Buffer size: " << buffer_size << std::endl ;
-    
+        std::cerr << ".. Maximum number of mismatches: " << maximum_mismatches << std::endl ;
+        std::cerr << ".. Minimum number of matches: " << minimum_matches << std::endl ;
+        std::cerr << ".. Minimum read size remaining: " << minimum_bases_remaining << std::endl ;    
+        std::cerr << ".. Buffer size: " << buffer_size << std::endl ;
+        std::cerr << std::endl ;
     }    
     if(file_input == "-" && file_adapters == "-"){
         std::cerr << "Cannot obtain information from 2 input streams" << std::endl << std::endl ;
