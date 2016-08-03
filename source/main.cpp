@@ -116,6 +116,7 @@ int main(int argc, char** argv) {
     int return_code = 0 ;
     std::ifstream fin ;
     std::ofstream fout ;
+    bool verbose = false ;   
     
     // activate exceptions for the streams
     fin.exceptions( std::ifstream::failbit | std::ifstream::badbit) ;
@@ -135,6 +136,7 @@ int main(int argc, char** argv) {
     boost::program_options::options_description desc("Allowed options") ;
     desc.add_options()
         ("help", "Produce the help message")
+        ("verbose", "Provide verbose output")
         ("input,i", boost::program_options::value<std::string>(&file_input), "The input FastQ file")
         ("output,o", boost::program_options::value<std::string>(&file_output), "The output FastQ file")
         ("adapter,a", boost::program_options::value< std::vector<std::string> >(&adapter_sequences), "The sequence of an  adapter to trim")
@@ -149,11 +151,21 @@ int main(int argc, char** argv) {
 	boost::program_options::notify(vm) ;
     
     // check the command-line arguments
-    if( vm.count("help") ) {
+    if( vm.count("help")) {
 		std::cerr << "Usage" << std::endl ; 
 		std::cerr << desc << std::endl; 
 		return 0 ;
 	}
+    if(vm.count("verbose")){
+        verbose = true ;
+        std::cerr << "Input file: " << file_input << std::endl ; 
+        std::cerr << "Output file: " << file_output << std::endl ;
+        std::cerr << "Adapter file: " << file_adapters << std::endl ;
+        std::cerr << "Adapter sequences on commandline: " << std::endl ;
+        for(std::size_t i=0; i<adapter_sequences.size(); ++i){
+            std::cerr << adapter_sequences[i] << std::endl ;
+        }
+    }    
     if(file_input == "-" && file_adapters == "-"){
         std::cerr << "Cannot obtain information from 2 input streams" << std::endl << std::endl ;
         std::cerr << "Usage" << std::endl ; 
