@@ -129,12 +129,12 @@ int main(int argc, char** argv) {
 		return 0 ;
 	}    
     if(file_input == "-"){
-        fin = std::ifstream(file_input, std::ifstream::in) ;
-        hin = &fin ;
+        fin = std::ifstream(file_input.c_str(), std::ifstream::in) ;
+        hin = fin ;
     }
     if(file_output != "-"){   
         fout = std::ofstream(file_output, std::ifstream::out) ;     
-        hout = &fout ; 
+        hout = fout ; 
     }
     if(file_adapters != "-"){
         
