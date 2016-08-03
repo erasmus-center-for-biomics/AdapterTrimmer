@@ -84,6 +84,29 @@ int process_reads(std::istream& hin, std::ostream& hout, const std::vector< Biom
 }
 
 //
+// Add adapters from file_adapters to the adapters vector
+//
+//
+//
+void adapter_helper(std::vector<Biomics::SequenceMatcher<rwwb::sequtils::base_t> >& adapters, std::string file_adapters ) {
+    std::string label ;
+    std::vector<rwwb::sequtils::base_t> seq ;
+    auto parser = rwwb::sequtils::fasta() ;                
+    if(file_adapters == "-") {                        
+        while( parser(std::cin, label, seq) ){                
+            adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches)) ;
+        }
+    } else {
+        std::ifstream fadapter(file_adapters.c_str(), std::ifstream::in) ;
+        while( parser( fadapter, label, seq) ){
+                adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches)) ;
+        }
+        fadapter.close() ;
+    }
+}
+
+
+//
 // the main program loop
 //
 //
@@ -148,22 +171,9 @@ int main(int argc, char** argv) {
         adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(rwwb::sequtils::string_to_base(adapter_sequences[i]), maximum_mismatches, minimum_matches)) ;    
     }
                 
-    // adapters are present
+    // adapters should be loaded from a file
     if(file_adapters != ""){
-        std::string label ;
-        std::vector<rwwb::sequtils::base_t> seq ;
-        auto parser = rwwb::sequtils::fasta() ;                
-        if(file_adapters == "-") {                        
-            while( parser(std::cin, label, seq) ){                
-                adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches)) ;
-            }
-        } else {
-            std::ifstream fadapter(file_adapters.c_str(), std::ifstream::in) ;
-            while( parser( fadapter, label, seq) ){
-                 adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches)) ;
-            }
-            fadapter.close() ;
-        }
+        adapter_helper(adapters, file_adapters) ;
     }  
         
     if(adapters.size() == 0){
