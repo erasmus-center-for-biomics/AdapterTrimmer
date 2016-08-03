@@ -92,9 +92,7 @@ int main(int argc, char** argv) {
     int return_code = 0 ;
     std::ifstream fin ;
     std::ofstream fout ;
-    std::istream& hin = std::cin ;
-    std::ostream& hout = std::cout ;
-    
+        
     // the input parameters 
     std::string file_input = "-" ;
     std::string file_output = "-" ;
@@ -129,16 +127,17 @@ int main(int argc, char** argv) {
 		return 0 ;
 	}    
     if(file_input == "-"){
-        fin.open(file_input.c_str(), std::ifstream::in) ;
-        hin = &fin ;
+        fin.open(file_input.c_str(), std::ifstream::in) ;        
     }
     if(file_output != "-"){   
-        fout.open(file_output, std::ifstream::out) ;     
-        hout = &fout ; 
+        fout.open(file_output, std::ifstream::out) ;             
     }
     if(file_adapters != "-"){
         
     }      
+    
+    std::istream& hin = fin.is_open ? fin : std::cin ;
+    std::ostream& hout = fout.is_open ? fout : std::cout ;
     
     // initialize the adapters
     std::vector<Biomics::SequenceMatcher<rwwb::sequtils::base_t> > adapters ;
