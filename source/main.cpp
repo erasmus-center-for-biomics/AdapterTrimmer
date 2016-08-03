@@ -76,9 +76,9 @@ int process_reads(std::istream& hin, std::ostream& hout, const std::vector< Biom
                 << buffer[i].quality << std::endl ; 
         }
         
-        // if we didn't get the expected number of reads move on
+        // if we didn't get the expected number of reads stop the analysis
         if(obtained != buffersize) 
-            break ;                
+            break ;
     }   
     return 0 ;
 }
