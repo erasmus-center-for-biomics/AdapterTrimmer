@@ -90,8 +90,10 @@ int main(int argc, char** argv) {
     
     //
     int return_code = 0 ;
-    std::istream hin ;
-    std::ostream hout ;
+    std::ifstream fin ;
+    std::ofstream fout ;
+    std::istream hin = std::cin ;
+    std::ostream hout = std::cout ;
     
     // the input parameters 
     std::string file_input = "-" ;
@@ -126,15 +128,13 @@ int main(int argc, char** argv) {
 		std::cerr << desc << std::endl; 
 		return 0 ;
 	}    
-    if(file_input == "-"){            
-        hin = std::cin ;
-    } else { 
-        hin = (std::istream) std::ifstream(file_input, std::ifstream::in) ;
+    if(file_input == "-"){
+        fin = std::ifstream(file_input, std::ifstream::in) ;     
+        hin = (std::istream) fin ;
     }   
-    if(file_output == "-"){
-        hout = std::cout ;
-    } else {
-        hout = (std::ostream) std::ofstream(file_output, std::ifstream::out) ;
+    if(file_output != "-"){   
+        fout = std::ofstream(file_output, std::ifstream::out) ;     
+        hout = (std::ostream) fout ; 
     }
     if(file_adapters != "-"){
         
@@ -151,11 +151,11 @@ int main(int argc, char** argv) {
       
       
     // cleanup the opened files
-    if(file_input == "-"){
-        hin.close() ;
+    if(file_input != "-"){
+        fin.close() ;
     }
     if(file_output != "-"){
-        hout.close() ;
+        fout.close() ;
     }
           
     //
