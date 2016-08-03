@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
     //
     int return_code = 0 ;
     std::istream hin ;
-    std::istream hout ;
+    std::ostream hout ;
     
     // the input parameters 
     std::string file_input = "-" ;
