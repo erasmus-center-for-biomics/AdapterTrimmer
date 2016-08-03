@@ -161,7 +161,7 @@ int main(int argc, char** argv) {
 		return 101 ;
     }
         
-    // assign the input files
+    // assign the in and output files
     if(file_input != "-"){
         try {
             fin.open(file_input.c_str(), std::ifstream::in) ;
@@ -220,6 +220,6 @@ int main(int argc, char** argv) {
         fout.close() ;
     }
           
-    //
+    // return the default return code
     return return_code ;
 }
