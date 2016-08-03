@@ -151,7 +151,7 @@ int main(int argc, char** argv) {
     // adapters are present
     if(file_adapters != ""){
         std::string label ;
-        std::vector<rwwb::sequtils::base_t> seq() ;
+        std::vector<rwwb::sequtils::base_t> seq ;
         auto parser = rwwb::sequtils::fasta() ;
         
         if(file_adapters == "-") {                        
