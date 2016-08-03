@@ -99,7 +99,7 @@ void adapter_helper(std::vector< std::vector<rwwb::sequtils::base_t> >& sequence
     } else {
         std::ifstream fadapter(file_adapters.c_str(), std::ifstream::in) ;
         while( parser( fadapter, label, seq) ){
-                sequences.push_back(seq) ;
+            sequences.push_back(seq) ;
         }
         fadapter.close() ;
     }
@@ -158,11 +158,25 @@ int main(int argc, char** argv) {
     }
         
     // assign the input files
-    if(file_input == "-"){
-        fin.open(file_input.c_str(), std::ifstream::in) ;        
+    if(file_input != "-"){
+        try {
+            fin.open(file_input.c_str(), std::ifstream::in) ;
+        } catch (std::ifstream::failure e){
+            std::cerr << "Could not open input file" << file_input << std::endl << std::endl ;
+            std::cerr << "Usage" << std::endl ; 
+    		std::cerr << desc << std::endl; 
+	    	return 102 ;
+        }        
     }
-    if(file_output != "-"){   
-        fout.open(file_output, std::ifstream::out) ;             
+    if(file_output != "-"){
+        try {   
+            fout.open(file_output, std::ifstream::out) ;
+        } catch (std::ofstream::failure e){
+            std::cerr << "Could not open output file" << file_output << std::endl << std::endl ;
+            std::cerr << "Usage" << std::endl ; 
+    		std::cerr << desc << std::endl; 
+	    	return 103 ;
+        }             
     }
         
     // initialize the adapters
@@ -173,9 +187,17 @@ int main(int argc, char** argv) {
                 
     // adapters should be loaded from a file
     if(file_adapters != ""){
-        std::vector<std::vector<rwwb::sequtils::base_t> > base_t_sequences ;
-        adapter_helper(base_t_sequences, file_adapters) ;
         
+        std::vector<std::vector<rwwb::sequtils::base_t> > base_t_sequences ;
+        
+        try {   
+            adapter_helper(base_t_sequences, file_adapters) ;
+        } catch (std::ofstream::failure e){
+            std::cerr << "Could not open adapter file" << file_adapters << std::endl << std::endl ;
+            std::cerr << "Usage" << std::endl ; 
+    		std::cerr << desc << std::endl; 
+	    	return 103 ;
+        }
         for(std::size_t i=0; i<base_t_sequences.size(); ++i){
             adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(base_t_sequences[i], maximum_mismatches, minimum_matches)) ;    
         }
@@ -185,7 +207,7 @@ int main(int argc, char** argv) {
         std::cerr << "No adapter sequences added" << std::endl << std::endl ;
         std::cerr << "Usage" << std::endl ; 
 		std::cerr << desc << std::endl; 
-		return 101 ;
+		return 104 ;
     }
     
     // add the input streams 
