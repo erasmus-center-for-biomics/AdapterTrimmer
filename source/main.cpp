@@ -141,32 +141,39 @@ int main(int argc, char** argv) {
     if(file_output != "-"){   
         fout.open(file_output, std::ifstream::out) ;             
     }
-    
+        
+    // initialize the adapters
+    std::vector<Biomics::SequenceMatcher<rwwb::sequtils::base_t> > adapters ;
+    for(std::size_t i=0; i<adapter_sequences.size(); ++i){
+        adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(rwwb::sequtils::string_to_base(adapter_sequences[i]), maximum_mismatches, minimum_matches)) ;    
+    }
+                
     // adapters are present
     if(file_adapters != ""){
         std::string label ;
         std::vector<rwwb::sequtils::base_t> seq() ;
-        rwwb::sequtils::fasta fasta_adapters ;
+        auto parser = rwwb::sequtils::fasta() ;
         
         if(file_adapters == "-") {                        
-            while( fasta_adapters(std::cin, label, seq) ){
+            while( parser(std::cin, label, seq) ){
                  adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches) ;
             }
         } else {
             std::ifstream fadapter(file_adapters.c_str(), std::ifstream::in) ;
-            while( fasta_adapters(fadapter, label, seq) ){
+            while( parser(fadapter, label, seq) ){
                  adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches) ;
             }
             fadapter.close() ;
         }
     }  
-    
-    // initialize the adapters
-    std::vector<Biomics::SequenceMatcher<rwwb::sequtils::base_t> > adapters ;
-    for(std::size_t i=0; i<adapter_sequences.size(); ++i){
-        adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(rwwb::sequtils::string_to_base(adapter_sequences[i]), maximum_mismatches, minimum_matches)) ;    
-    }            
         
+    if(adapters.size() == 0){
+        std::cerr << "No adapter sequences added" << std::endl << std::endl ;
+        std::cerr << "Usage" << std::endl ; 
+		std::cerr << desc << std::endl; 
+		return 101 ;
+    }
+    
     // add the input streams 
     std::istream& hin = fin.is_open() ? fin : std::cin ;
     std::ostream& hout = fout.is_open() ? fout : std::cout ;
