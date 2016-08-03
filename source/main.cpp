@@ -174,7 +174,7 @@ int main(int argc, char** argv) {
     // adapters should be loaded from a file
     if(file_adapters != ""){
         std::vector<std::vector<rwwb::sequtils::base_t> > base_t_sequences ;
-        adapter_helper(base_t_adapters, file_adapters) ;
+        adapter_helper(base_t_sequences, file_adapters) ;
         
         for(std::size_t i=0; i<base_t_sequences.size(); ++i){
             adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(rwwb::sequtils::string_to_base(base_t_sequences[i]), maximum_mismatches, minimum_matches)) ;    
