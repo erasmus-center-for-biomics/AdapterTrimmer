@@ -158,8 +158,11 @@ int main(int argc, char** argv) {
         if(file_adapters == "-") {                        
             while( true ){
                 ok = parser(std::cin, label, seq) ;
-                if(!ok) break ;
-                adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches) ;
+                if(!ok) 
+                    break ;
+                adapters.push_back(
+                    Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches)
+                    ) ;
             }
         } else {
             std::ifstream fadapter(file_adapters.c_str(), std::ifstream::in) ;
