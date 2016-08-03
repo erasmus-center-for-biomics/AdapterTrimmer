@@ -153,14 +153,17 @@ int main(int argc, char** argv) {
         std::string label ;
         std::vector<rwwb::sequtils::base_t> seq ;
         auto parser = rwwb::sequtils::fasta() ;
+        bool ok = false ;
         
         if(file_adapters == "-") {                        
-            while( parser(std::cin, label, seq) ){
-                 adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches) ;
+            while( true ){
+                ok = parser(std::cin, label, seq) ;
+                if(!ok) break ;
+                adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches) ;
             }
         } else {
             std::ifstream fadapter(file_adapters.c_str(), std::ifstream::in) ;
-            while( parser(fadapter, label, seq) ){
+            while( parser( fadapter, label, seq) ){
                  adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches) ;
             }
             fadapter.close() ;
