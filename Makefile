@@ -1,4 +1,3 @@
-BOOST_INCLUDE=/usr/include/
 
 # is either c++0x or c++11
 cversion=c++0x
@@ -20,7 +19,6 @@ adapter_trim: $(obj)
 	$(CC) $(obj) $(baseLDFLAGS) $(threadlib) \
 		-Irwwb \
 		-Iinclude \
-		-I$(BOOST_INCLUDE) \
 		-lboost_program_options \
 		-o bin/adapter_trim
 	
@@ -35,6 +33,5 @@ build/%.o: source/%.cpp
 	$(CC) $(baseCFLAGS) \
 		-Irwwb \
 		-Iinclude \
-		-I$(BOOST_INCLUDE) \
 		$(threadlib) \
 		source/$*.cpp -o $@
