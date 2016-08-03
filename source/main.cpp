@@ -129,7 +129,7 @@ int main(int argc, char** argv) {
 		return 0 ;
 	}    
     if(file_input == "-"){
-        fin = std::ifstream(file_input.c_str(), std::ifstream::in) ;
+        fin(file_input.c_str(), std::ifstream::in) ;
         hin = fin ;
     }
     if(file_output != "-"){   
