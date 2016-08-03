@@ -165,6 +165,11 @@ int main(int argc, char** argv) {
         for(std::size_t i=0; i<adapter_sequences.size(); ++i){
             std::cerr << adapter_sequences[i] << std::endl ;
         }
+        std::cerr << "Maximum number of mismatches: " << maximum_mismatches << std::endl ;
+        std::cerr << "Minimum number of matches: " << minimum_matches << std::endl ;
+        std::cerr << "Minimum read size remaining: " << minimum_bases_remaining << std::endl ;    
+        std::cerr << "Buffer size: " << buffer_size << std::endl ;
+    
     }    
     if(file_input == "-" && file_adapters == "-"){
         std::cerr << "Cannot obtain information from 2 input streams" << std::endl << std::endl ;
