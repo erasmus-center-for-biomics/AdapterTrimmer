@@ -92,8 +92,8 @@ int main(int argc, char** argv) {
     int return_code = 0 ;
     std::ifstream fin ;
     std::ofstream fout ;
-    std::istream hin = std::cin ;
-    std::ostream hout = std::cout ;
+    std::istream hin ;
+    std::ostream hout ;
     
     // the input parameters 
     std::string file_input = "-" ;
@@ -131,10 +131,14 @@ int main(int argc, char** argv) {
     if(file_input == "-"){
         fin = std::ifstream(file_input, std::ifstream::in) ;
         hin = &fin ;
-    }   
+    } else {
+        hin = &std::cin ;
+    }
     if(file_output != "-"){   
         fout = std::ofstream(file_output, std::ifstream::out) ;     
         hout = &fout ; 
+    } else {
+        hout = &std::cout ;
     }
     if(file_adapters != "-"){
         
