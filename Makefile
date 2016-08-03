@@ -35,5 +35,6 @@ build/%.o: source/%.cpp
 	$(CC) $(baseCFLAGS) \
 		-Irwwb \
 		-Iinclude \
+		-I$(BOOST_INCLUDE) \
 		$(threadlib) \
 		source/$*.cpp -o $@
