@@ -1,4 +1,4 @@
-BOOST_INCLUDE=/usr/include/boost/
+BOOST_INCLUDE=/usr/include/
 
 # is either c++0x or c++11
 cversion=c++0x
