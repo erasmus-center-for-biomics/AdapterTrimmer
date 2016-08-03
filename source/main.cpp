@@ -136,8 +136,8 @@ int main(int argc, char** argv) {
         
     }      
     
-    std::istream& hin = fin.is_open ? fin : std::cin ;
-    std::ostream& hout = fout.is_open ? fout : std::cout ;
+    std::istream& hin = fin.is_open() ? fin : std::cin ;
+    std::ostream& hout = fout.is_open() ? fout : std::cout ;
     
     // initialize the adapters
     std::vector<Biomics::SequenceMatcher<rwwb::sequtils::base_t> > adapters ;
