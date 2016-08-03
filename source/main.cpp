@@ -13,6 +13,7 @@
 #include <sequence_matcher.hpp>
 #include <rwwb/sequtils/types.hpp>
 #include <rwwb/sequtils/fastq.hpp>
+#include <rwwb/sequtils/fasta.hpp>
 
 // Processes the reads in the input stream and writes them to the output stream
 //
@@ -96,7 +97,7 @@ int main(int argc, char** argv) {
     // the input parameters 
     std::string file_input = "-" ;
     std::string file_output = "-" ;
-    std::string file_adapters = "-" ;
+    std::string file_adapters = "" ;
     std::vector<std::string> adapter_sequences(0) ;
     std::size_t maximum_mismatches = 2 ;
     std::size_t minimum_matches = 1 ;
@@ -109,12 +110,12 @@ int main(int argc, char** argv) {
         ("help", "Produce the help message")
         ("input,i", boost::program_options::value<std::string>(&file_input), "The input FastQ file")
         ("output,o", boost::program_options::value<std::string>(&file_output), "The output FastQ file")
-        ("adapter,a", boost::program_options::value< std::vector<std::string> >(&adapter_sequences), "The adapter sequence to trim")
-        ("adapter-file,f", boost::program_options::value<std::string>(&file_adapters), "A file with adapter sequences")
-        ("maximum-mismatches", boost::program_options::value<std::size_t>(&maximum_mismatches), "The maximum number of mismatches")
-        ("minimum-matches", boost::program_options::value<std::size_t>(&minimum_matches), "The minimum number of matching bases")
-        ("minimum-bases-remaining", boost::program_options::value<std::size_t>(&minimum_bases_remaining), "The minimum number of bases in the reads remaining")
-        ("buffer-size", boost::program_options::value<std::size_t>(&buffer_size), "The size of the read buffer to process") ;    
+        ("adapter,a", boost::program_options::value< std::vector<std::string> >(&adapter_sequences), "The sequence of an  adapter to trim")
+        ("adapter-file,f", boost::program_options::value<std::string>(&file_adapters), "A fasta file with adapter sequences")
+        ("maximum-mismatches", boost::program_options::value<std::size_t>(&maximum_mismatches), "The maximum number of mismatches (default 2)")
+        ("minimum-matches", boost::program_options::value<std::size_t>(&minimum_matches), "The minimum number of matching bases (default 1)")
+        ("minimum-bases-remaining", boost::program_options::value<std::size_t>(&minimum_bases_remaining), "The minimum number of bases in the reads remaining (default 25)")
+        ("buffer-size", boost::program_options::value<std::size_t>(&buffer_size), "The size of the read buffer to process (default 1000)") ;    
     boost::program_options::positional_options_description p ;
 	boost::program_options::variables_map vm ;
 	boost::program_options::store(boost::program_options::command_line_parser(argc, argv).options(desc).positional(p).run(), vm) ;
@@ -125,26 +126,51 @@ int main(int argc, char** argv) {
 		std::cerr << "Usage" << std::endl ; 
 		std::cerr << desc << std::endl; 
 		return 0 ;
-	}    
+	}
+    if(file_input == "-" && file_adapters == "-"){
+        std::cerr << "Cannot obtain information from 2 input streams" << std::endl << std::endl ;
+        std::cerr << "Usage" << std::endl ; 
+		std::cerr << desc << std::endl; 
+		return 101 ;
+    }
+        
+    // assign the input files
     if(file_input == "-"){
         fin.open(file_input.c_str(), std::ifstream::in) ;        
     }
     if(file_output != "-"){   
         fout.open(file_output, std::ifstream::out) ;             
     }
-    if(file_adapters != "-"){
-        
-    }      
     
-    std::istream& hin = fin.is_open() ? fin : std::cin ;
-    std::ostream& hout = fout.is_open() ? fout : std::cout ;
+    // adapters are present
+    if(file_adapters != ""){
+        std::string label ;
+        std::vector<rwwb::sequtils::base_t> seq() ;
+        rwwb::sequtils::fasta fasta_adapters() ;
+        
+        if(file_adapters == "-") {                        
+            while( fasta_adapters(std::cin, label, seq) ){
+                 adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches) ;
+            }
+        } else {
+            std::ifstream fadapter(file_adapters.c_str(), std::ifstream::in) ;
+            while( fasta_adapters(fadapter, label, seq) ){
+                 adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches) ;
+            }
+            fadapter.close() ;
+        }
+    }  
     
     // initialize the adapters
     std::vector<Biomics::SequenceMatcher<rwwb::sequtils::base_t> > adapters ;
     for(std::size_t i=0; i<adapter_sequences.size(); ++i){
         adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(rwwb::sequtils::string_to_base(adapter_sequences[i]), maximum_mismatches, minimum_matches)) ;    
-    }        
-    
+    }            
+        
+    // add the input streams 
+    std::istream& hin = fin.is_open() ? fin : std::cin ;
+    std::ostream& hout = fout.is_open() ? fout : std::cout ;
+        
     // process the reads from standard in 
     return_code = process_reads(hin, hout, adapters, buffer_size, minimum_bases_remaining) ;
       
