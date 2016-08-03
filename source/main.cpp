@@ -192,7 +192,7 @@ int main(int argc, char** argv) {
         
         try {   
             adapter_helper(base_t_sequences, file_adapters) ;
-        } catch (std::ofstream::failure e){
+        } catch (std::ifstream::failure e){
             std::cerr << "Could not open adapter file" << file_adapters << std::endl << std::endl ;
             std::cerr << "Usage" << std::endl ; 
     		std::cerr << desc << std::endl; 
