@@ -130,11 +130,11 @@ int main(int argc, char** argv) {
 	}    
     if(file_input == "-"){
         fin.open(file_input.c_str(), std::ifstream::in) ;
-        hin = fin ;
+        hin = &fin ;
     }
     if(file_output != "-"){   
         fout.open(file_output, std::ifstream::out) ;     
-        hout = fout ; 
+        hout = &fout ; 
     }
     if(file_adapters != "-"){
         
