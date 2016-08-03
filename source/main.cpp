@@ -88,18 +88,18 @@ int process_reads(std::istream& hin, std::ostream& hout, const std::vector< Biom
 //
 //
 //
-void adapter_helper(std::vector<Biomics::SequenceMatcher<rwwb::sequtils::base_t> >& adapters, std::string file_adapters ) {
+void adapter_helper(std::vector<rwwb::sequtils::base_t >& sequences, std::string file_adapters ) {
     std::string label ;
     std::vector<rwwb::sequtils::base_t> seq ;
     auto parser = rwwb::sequtils::fasta() ;                
     if(file_adapters == "-") {                        
         while( parser(std::cin, label, seq) ){                
-            adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches)) ;
+            sequences.push_back(seq) ;
         }
     } else {
         std::ifstream fadapter(file_adapters.c_str(), std::ifstream::in) ;
         while( parser( fadapter, label, seq) ){
-                adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(seq, maximum_mismatches, minimum_matches)) ;
+                sequences.push_back(seq) ;
         }
         fadapter.close() ;
     }
@@ -173,7 +173,12 @@ int main(int argc, char** argv) {
                 
     // adapters should be loaded from a file
     if(file_adapters != ""){
-        adapter_helper(adapters, file_adapters) ;
+        std::vector<rwwb::sequtils::base_t > base_t_sequences ;
+        adapter_helper(base_t_adapters, file_adapters) ;
+        
+        for(std::size_t i=0; i<base_t_sequences.size(); ++i){
+            adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(rwwb::sequtils::string_to_base(base_t_sequences[i]), maximum_mismatches, minimum_matches)) ;    
+        }
     }  
         
     if(adapters.size() == 0){
