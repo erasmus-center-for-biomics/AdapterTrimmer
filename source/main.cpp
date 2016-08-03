@@ -146,7 +146,7 @@ int main(int argc, char** argv) {
     if(file_adapters != ""){
         std::string label ;
         std::vector<rwwb::sequtils::base_t> seq() ;
-        rwwb::sequtils::fasta fasta_adapters() ;
+        rwwb::sequtils::fasta fasta_adapters ;
         
         if(file_adapters == "-") {                        
             while( fasta_adapters(std::cin, label, seq) ){
