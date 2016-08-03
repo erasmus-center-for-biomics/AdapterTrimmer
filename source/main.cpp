@@ -116,7 +116,8 @@ int main(int argc, char** argv) {
     int return_code = 0 ;
     std::ifstream fin ;
     std::ofstream fout ;
-        
+    file.exceptions( std::ifstream::failbit | std::ifstream::badbit | std::ofstream::failbit | std::ofstream::badbit);
+    
     // the input parameters 
     std::string file_input = "-" ;
     std::string file_output = "-" ;
@@ -158,18 +159,20 @@ int main(int argc, char** argv) {
     }
         
     // assign the input files
-    if(file_input != "-"){        
-        bool ok = fin.open(file_input.c_str(), std::ifstream::in) ;
-        if(!ok){
+    if(file_input != "-"){
+        try {
+            bool ok = fin.open(file_input.c_str(), std::ifstream::in) ;
+        } catch (std::ifstream::failure e){
             std::cerr << "Could not open input file" << file_input << std::endl << std::endl ;
             std::cerr << "Usage" << std::endl ; 
     		std::cerr << desc << std::endl; 
 	    	return 102 ;
         }        
     }
-    if(file_output != "-"){        
-        bool ok = fout.open(file_output, std::ifstream::out) ;
-        if(!ok){
+    if(file_output != "-"){
+        try {   
+            fout.open(file_output, std::ifstream::out) ;
+        } catch (std::ofstream::failure e){
             std::cerr << "Could not open output file" << file_output << std::endl << std::endl ;
             std::cerr << "Usage" << std::endl ; 
     		std::cerr << desc << std::endl; 
