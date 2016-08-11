@@ -1,7 +1,7 @@
 # Global parameters
 # =================
 #
-path_viral := $(shell echo $$PATH_VIRAL)
+path_trim := $(shell echo $$PATH_ADAPTERTRIMMER)
 path_zcat := $(shell echo $$PATH_ZCAT)
 
 # Minor fixed parameters
@@ -35,7 +35,7 @@ trim: $(trimmed)
 trimmed/%.fastq: %.fastq
 	mkdir -p logs
 	mkdir -p trimmed
-	$(path_viral)/submodules/AdapterTrimmer/bin/adapter_trim \
+	$(path_trim)/bin/adapter_trim \
 		-i $*.fastq \
 		$(adapter_trim_options) \
 		-a AGATCGGAAGAG \
@@ -45,7 +45,7 @@ trimmed/%.fastq: %.fastq
 trimmed/%.fastq: %.fastq.gz
 	mkdir -p logs
 	mkdir -p trimmed
-	$(path_zcat)/zcat $*.fastq.gz | $(path_viral)/submodules/AdapterTrimmer/bin/adapter_trim \
+	$(path_zcat)/zcat $*.fastq.gz | $(path_trim)/bin/adapter_trim \
 		-i - \
 		$(adapter_trim_options) \
 		-a AGATCGGAAGAG \
