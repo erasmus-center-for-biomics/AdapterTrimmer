@@ -15,8 +15,8 @@
 #include <rwwb/sequtils/fastq.hpp>
 #include <rwwb/sequtils/fasta.hpp>
 
-// Processes the reads in the input stream and writes them to the output stream
 //
+// Processes the reads in the input stream and writes them to the output stream
 //
 int process_reads(std::istream& hin, std::ostream& hout, const std::vector< Biomics::SequenceMatcher<rwwb::sequtils::base_t> >& adapters, std::size_t buffersize, std::size_t min_bases_left) {
     
@@ -58,7 +58,6 @@ int process_reads(std::istream& hin, std::ostream& hout, const std::vector< Biom
                     buffer[i].sequence = std::vector<rwwb::sequtils::base_t>(buffer[i].sequence.size(), -1) ;
                     buffer[i].quality = std::string(buffer[i].sequence.size(), '!') ;
                 } else {
-                    
                     // otherwise truncate the read                    
                     buffer[i].sequence = std::vector<rwwb::sequtils::base_t>(buffer[i].sequence.begin(), buffer[i].sequence.begin() + bases_left) ;
                     buffer[i].quality = std::string(buffer[i].quality.begin(), buffer[i].quality.begin() + bases_left) ;
@@ -86,8 +85,6 @@ int process_reads(std::istream& hin, std::ostream& hout, const std::vector< Biom
 //
 // Add adapters from file_adapters to the adapters vector
 //
-//
-//
 void adapter_helper(std::vector< std::vector<rwwb::sequtils::base_t> >& sequences, std::string file_adapters ) {
     std::string label ;
     std::vector<rwwb::sequtils::base_t> seq ;
@@ -107,8 +104,7 @@ void adapter_helper(std::vector< std::vector<rwwb::sequtils::base_t> >& sequence
 
 
 //
-// the main program loop
-//
+// The main program loop
 //
 int main(int argc, char** argv) {
     

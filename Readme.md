@@ -10,9 +10,12 @@ Per default the following sequences will be trimmed: ``
 Installation instruction
 ------------------------
 
+Prerequisites:
+* BOOST libraries
+* BOOST development libraries
 
+```{r}
+make ;
+```
 
-Methods
--------
- 
 
