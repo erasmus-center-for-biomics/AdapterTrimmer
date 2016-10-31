@@ -109,7 +109,7 @@ namespace Biomics {
     }
 
     template<typename T>
-    std::size_t vector_matcher(const std::vector<T>& subject, const std::vector<T>& query, std::size_t mismatch_threshold, std::size_t minimum_matches)
+    std::size_t vector_matcher(const std::vector<T>& subject, const std::vector<T>& query, std::size_t mismatch_threshold, std::size_t minimum_matches){
         return vector_matcher<T>(default_comparison, subject, query, mismatch_threshold, minimum_matches) ;
     }
 
