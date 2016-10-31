@@ -58,7 +58,7 @@ namespace Biomics {
         return match_location ;
     }
     */
-    
+
     template<typename T>
     inline bool default_comparison(T a, T b){
         return a == b ? true : false ;
@@ -110,7 +110,7 @@ namespace Biomics {
 
     template<typename T>
     std::size_t vector_matcher(const std::vector<T>& subject, const std::vector<T>& query, std::size_t mismatch_threshold, std::size_t minimum_matches)
-        return vector_matcher(default_comparison, subject, query, mismatch_threshold, minimum_matches) ;
+        return vector_matcher<T>(default_comparison, subject, query, mismatch_threshold, minimum_matches) ;
     }
 
     template<typename T>
