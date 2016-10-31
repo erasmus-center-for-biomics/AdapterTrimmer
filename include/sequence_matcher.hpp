@@ -4,13 +4,16 @@
 // STL
 #include <cstddef>
 #include <vector>
+#include <functional>
 
 namespace Biomics {
 
     //
     // An iterative matching algorithm
     //
-    //            
+    // 
+
+    /*
     template<typename T>
     std::size_t vector_matcher(const std::vector<T>& subject, const std::vector<T>& query, std::size_t mismatch_threshold, std::size_t minimum_matches) {
         
@@ -54,7 +57,62 @@ namespace Biomics {
         //
         return match_location ;
     }
+    */
     
+    template<typename T>
+    inline bool default_comparison(T a, T b){
+        return a == b ? true : false ;
+    }
+
+    template<typename T>
+    std::size_t vector_matcher(const std::function<bool (T, T)> compare, const std::vector<T>& subject, const std::vector<T>& query, std::size_t mismatch_threshold, std::size_t minimum_matches) {
+        
+        //
+        std::size_t match_location = subject.size() ;                                     
+        std::size_t mismatches = 0 ;            
+        std::size_t matches = 0 ;
+        bool ismatch = false ;
+        
+        for(std::size_t i=0; i<subject.size(); ++i){
+            if(compare(subject[i], query[0])) {
+                
+                // determine where to match
+                ismatch = true ;                    
+                mismatches = 0 ;
+                matches = 0 ;                     
+                for(std::size_t j=i; j<subject.size(); ++j) {
+                    
+                    if(j-i >= query.size())
+                        break ;                        
+                    
+                    if(!compare(subject[j], query[j-i])) {
+                        mismatches += 1 ;
+                        if(mismatches >= mismatch_threshold){
+                            ismatch = false ;
+                            break ;
+                        }
+                    } else {
+                        matches += 1 ; 
+                    }
+                }
+                
+                // check whether the sequence matches 
+                if(ismatch && matches > minimum_matches){
+                    match_location = i ;
+                    break ;                        
+                }                    
+            }
+        }
+        
+        //
+        return match_location ;
+    }
+
+    template<typename T>
+    std::size_t vector_matcher(const std::vector<T>& subject, const std::vector<T>& query, std::size_t mismatch_threshold, std::size_t minimum_matches)
+        return vector_matcher(default_comparison, subject, query, mismatch_threshold, minimum_matches) ;
+    }
+
     template<typename T>
     class SequenceMatcher {
                     
