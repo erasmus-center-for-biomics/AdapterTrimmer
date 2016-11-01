@@ -13,7 +13,7 @@ namespace Biomics {
     //
     // 
 
-    /*
+    
     template<typename T>
     std::size_t vector_matcher(const std::vector<T>& subject, const std::vector<T>& query, std::size_t mismatch_threshold, std::size_t minimum_matches) {
         
@@ -57,8 +57,8 @@ namespace Biomics {
         //
         return match_location ;
     }
-    */
-
+    
+    /*
     template<typename T>
     inline bool default_comparator(const T a, const T b){
         return a == b ? true : false ;
@@ -112,7 +112,8 @@ namespace Biomics {
     std::size_t vector_matcher(const std::vector<T>& subject, const std::vector<T>& query, std::size_t mismatch_threshold, std::size_t minimum_matches){
         return vector_matcher<T>(default_comparator, subject, query, mismatch_threshold, minimum_matches) ;
     }
-
+    */
+    
     template<typename T>
     class SequenceMatcher {
                     
