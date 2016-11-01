@@ -131,7 +131,11 @@ namespace Biomics {
         //
         //
         SequenceMatcher(std::vector<T> seq, std::size_t max_mm, std::size_t min_m):sequence(seq), maximum_mismatches(max_mm), minimum_matches(min_m), compare(&default_comparator){}
-        
+
+        // Tertiary constructor
+        //
+        // (with function assignment)
+        SequenceMatcher(std::vector<T> seq, std::size_t max_mm, std::size_t min_m, bool (*c)(T, T)):sequence(seq), maximum_mismatches(max_mm), minimum_matches(min_m), compare(c){}
         
         // Determines the point in the vector after which the sequence ought to be trimmed. 
         //
