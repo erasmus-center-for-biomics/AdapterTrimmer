@@ -192,6 +192,7 @@ int main(int argc, char** argv) {
     std::size_t maximum_mismatches = 2 ;
     std::size_t minimum_matches = 1 ;
     std::size_t minimum_bases_remaining = 25 ;    
+    std::size_t first_base = 10 ;
     std::size_t buffer_size = 1000 ;
         
     // parse the command-line parameters
@@ -206,6 +207,7 @@ int main(int argc, char** argv) {
         ("maximum-mismatches", boost::program_options::value<std::size_t>(&maximum_mismatches), "The maximum number of mismatches (default 2)")
         ("minimum-matches", boost::program_options::value<std::size_t>(&minimum_matches), "The minimum number of matching bases (default 1)")
         ("minimum-bases-remaining", boost::program_options::value<std::size_t>(&minimum_bases_remaining), "The minimum number of bases in the reads remaining (default 25)")
+        ("first-base", boost::program_options::value<std::size_t>(&first_base), "The first base to check in the reads (default 10)")
         ("buffer-size", boost::program_options::value<std::size_t>(&buffer_size), "The size of the read buffer to process (default 1000)") ;    
     boost::program_options::positional_options_description p ;
 	boost::program_options::variables_map vm ;
@@ -231,6 +233,7 @@ int main(int argc, char** argv) {
         std::cerr << ".. Maximum number of mismatches: " << maximum_mismatches << std::endl ;
         std::cerr << ".. Minimum number of matches: " << minimum_matches << std::endl ;
         std::cerr << ".. Minimum read size remaining: " << minimum_bases_remaining << std::endl ;    
+        std::cerr << ".. First base: " << first_base << std::endl ;
         std::cerr << ".. Buffer size: " << buffer_size << std::endl ;
         std::cerr << std::endl ;
     }    
@@ -252,7 +255,7 @@ int main(int argc, char** argv) {
     // initialize the adapters
     std::vector<Biomics::SequenceMatcher<rwwb::sequtils::base_t> > adapters ;
     for(std::size_t i=0; i<adapter_sequences.size(); ++i){
-        adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(rwwb::sequtils::string_to_base(adapter_sequences[i]), maximum_mismatches, minimum_matches, &iupac_comparator)) ;    
+        adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(rwwb::sequtils::string_to_base(adapter_sequences[i]), maximum_mismatches, minimum_matches, first_base, &iupac_comparator)) ;    
     }
                 
     // adapters should be loaded from a file
@@ -260,7 +263,7 @@ int main(int argc, char** argv) {
         std::vector<std::vector<rwwb::sequtils::base_t> > base_t_sequences ; 
         adapter_helper(base_t_sequences, file_adapters) ;
         for(std::size_t i=0; i<base_t_sequences.size(); ++i){
-            adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(base_t_sequences[i], maximum_mismatches, minimum_matches, &iupac_comparator)) ;    
+            adapters.push_back(Biomics::SequenceMatcher<rwwb::sequtils::base_t>(base_t_sequences[i], maximum_mismatches, minimum_matches, first_base, &iupac_comparator)) ;    
         }
     }  
         
