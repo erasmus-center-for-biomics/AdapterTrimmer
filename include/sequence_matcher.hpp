@@ -120,24 +120,24 @@ namespace Biomics {
         std::vector<T> sequence ;
         std::size_t maximum_mismatches ;
         std::size_t minimum_matches ;
-        
+        bool (*compare)(T, T) ;
       public:
         // Primary constructor
         //
         // 
-        SequenceMatcher(std::vector<T> seq):sequence(seq), maximum_mismatches(1), minimum_matches(1) {}
+        SequenceMatcher(std::vector<T> seq):sequence(seq), maximum_mismatches(1), minimum_matches(1), compare(&default_comparator) {}
         
         // Secondary constructor 
         //
         //
-        SequenceMatcher(std::vector<T> seq, std::size_t max_mm, std::size_t min_m):sequence(seq), maximum_mismatches(max_mm), minimum_matches(min_m){}
+        SequenceMatcher(std::vector<T> seq, std::size_t max_mm, std::size_t min_m):sequence(seq), maximum_mismatches(max_mm), minimum_matches(min_m), compare(&default_comparator){}
         
         
         // Determines the point in the vector after which the sequence ought to be trimmed. 
         //
         //           
         std::size_t match(const std::vector<T>& s) const {
-            return vector_matcher<T>(s, sequence, maximum_mismatches, minimum_matches) ;
+            return vector_matcher<T>(compare, s, sequence, maximum_mismatches, minimum_matches) ;
         }
                             
     } ;
