@@ -20,9 +20,67 @@
 // 
 //
 inline bool iupac_comparator(rwwb::sequtils::base_t a, rwwb::sequtils::base_t b){
+    // 0  1  2  3  4  5  6  7  8  9  10 11 12 13 
+    // A, C, G, T, R, Y, S, W, K, M, B, D, H, V 
+    // A, C, G, T  A  C  G  A  G  A  C  A  A  A
+    //             G  T  C  T  T  C  G  G  C  C 
+    //                               T  T  T  G
+    //
+
+    // N always matches
+    if(a == -1 || b == -1){
+        return true ;
+    } 
+
+    // direct match
     if(a == b){
         return true ; 
     }
+
+    // compound matches
+
+    // R         
+    if((a == 4 && (b == 0 || b == 2)) || (b == 4 && (a == 0 || a == 2))){
+        return true ;
+    }
+    // Y
+    if((a == 5 && (b == 1 || b == 3)) || (b == 5 && (a == 1 || a == 3))){
+        return true ;
+    }
+    // S
+    if((a == 6 && (b == 2 || b == 1)) || (b == 6 && (a == 2 || a == 1))){
+        return true ;
+    }
+    // W
+    if((a == 7 && (b == 0 || b == 3)) || (b == 7 && (a == 0 || a == 3))){
+        return true ;
+    }
+    // K
+    if((a == 8 && (b == 2 || b == 3)) || (b == 8 && (a == 2 || a == 3))){
+        return true ;
+    }    
+    // M
+    if((a == 9 && (b == 0 || b == 1)) || (b == 9 && (a == 0 || a == 1))){
+        return true ;
+    }
+
+    // B
+    if((a == 10 && (b == 1 || b == 2 || b == 3)) || (b == 10 && (a == 1 || a == 2 || a == 3))){
+        return true ;
+    }
+    // D
+    if((a == 11 && (b == 0 || b == 2 || b == 3)) || (b == 11 && (a == 0 || a == 2 || a == 3))){
+        return true ;
+    }
+    // H
+    if((a == 12 && (b == 0 || b == 1 || b == 3)) || (b == 10 && (a == 0 || a == 1 || a == 3))){
+        return true ;
+    }
+    // V
+    if((a == 13 && (b == 0 || b == 1 || b == 2)) || (b == 13 && (a == 0 || a == 1 || a == 2))){
+        return true ;
+    }
+
     return false ;
 }
 
