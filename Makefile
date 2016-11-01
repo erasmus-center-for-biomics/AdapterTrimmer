@@ -14,7 +14,7 @@ obj = $(patsubst source/%.cpp, build/%.o, $(src))
 
 all: adapter_trim
 
-adapter_trim: build/main.o
+adapter_trim: build/adapter_trim.o
 	-mkdir -p bin/
 	$(CC) build/adapter_trim.o $(baseLDFLAGS) $(threadlib) \
 		-Irwwb \
