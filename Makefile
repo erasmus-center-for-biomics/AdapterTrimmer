@@ -16,7 +16,7 @@ all: adapter_trim
 
 adapter_trim: build/main.o
 	-mkdir -p bin/
-	$(CC) build/main.o $(baseLDFLAGS) $(threadlib) \
+	$(CC) build/adapter_trim.o $(baseLDFLAGS) $(threadlib) \
 		-Irwwb \
 		-Iinclude \
 		-lboost_program_options \
