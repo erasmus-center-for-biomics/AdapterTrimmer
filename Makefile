@@ -14,9 +14,9 @@ obj = $(patsubst source/%.cpp, build/%.o, $(src))
 
 all: adapter_trim
 
-adapter_trim: $(obj) 
+adapter_trim: build/main.o
 	-mkdir -p bin/
-	$(CC) $(obj) $(baseLDFLAGS) $(threadlib) \
+	$(CC) build/main.o $(baseLDFLAGS) $(threadlib) \
 		-Irwwb \
 		-Iinclude \
 		-lboost_program_options \
