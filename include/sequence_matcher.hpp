@@ -60,11 +60,11 @@ namespace Biomics {
     */
     
     template<typename T>
-    inline bool default_comparator(const T a, const T b){
+    inline bool default_comparator(T& a, T& b){
         return a == b ? true : false ;
     }
 
-    template<typename T, typename bool (*X)(const T, const T)>
+    template<typename T, bool (*X)(T&, T&)>
     std::size_t vector_matcher(X compare, const std::vector<T>& subject, const std::vector<T>& query, std::size_t mismatch_threshold, std::size_t minimum_matches) {
         
         //
