@@ -75,6 +75,47 @@ namespace sequtils {
 		case 't':
 			r = 3 ;
 			break ;
+		// extended IUPAC codes
+		case 'R':
+		case 'r':
+			r = 4 ;
+			break ;
+		case 'Y':
+		case 'y':
+			r = 5 ;
+			break ;
+		case 'S':
+		case 's':
+			r = 6 ;
+			break ;
+		case 'W':
+		case 'w':
+			r = 7 ;
+			break ;
+		case 'K':
+		case 'k':
+			r = 8 ;
+			break ;
+		case 'M':
+		case 'm':
+			r = 9 ;
+			break ;
+		case 'B':
+		case 'b':
+			r = 10 ;
+			break ;
+		case 'D':
+		case 'd':
+			r = 11 ;
+			break ;
+		case 'H':
+		case 'h':
+			r = 12 ;
+			break ;		
+		case 'V':
+		case 'v':
+			r = 13 ;
+			break ;		
 		default: {
 				r = -1 ;
 				break ;
@@ -103,6 +144,36 @@ namespace sequtils {
 			break ;
 		case 3:
 			r = 'T' ;
+			break ;
+		case 4:
+			r = 'R' ;
+			break ;
+		case 5:
+			r = 'Y' ;
+			break ;
+		case 6:
+			r = 'S' ;
+			break ;
+		case 7:
+			r = 'W' ;
+			break ;
+		case 8:
+			r = 'K' ;
+			break ;
+		case 9:
+			r = 'M' ;
+			break ;
+		case 10:
+			r = 'B' ;
+			break ;
+		case 11:
+			r = 'D' ;
+			break ;
+		case 12:
+			r = 'H' ;
+			break ;
+		case 13:
+			r = 'V' ;
 			break ;
 		default:
 			r = 'N' ;
