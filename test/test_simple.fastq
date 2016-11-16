@@ -1,0 +1,16 @@
+@read1 GATC +20
+AAAAAAAAAAAAAAAAAAAAGATCAAAAA
++
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@read2 GATC +25
+AAAAAAAAAAAAAAAAAAAAAAAAAGATCAAAAA
++
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@read3 GAATTC +250 GATC +3
+AAAAAAAAAAAAAAAAAAAAAAAAAGAATTCCCCGATCTTTTTTTTTTTTTTTGGGGGGGGGGGGGG
++
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@read4 GAATTC +5 GATC +25
+AAAAAGAATTCAAAAAAAAAAAAAAGATC
++
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
