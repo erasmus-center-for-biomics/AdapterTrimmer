@@ -104,7 +104,7 @@ namespace Biomics {
                 }
                 
                 // check whether the sequence matches 
-                if(ismatch && matches > minimum_matches){
+                if(ismatch && matches >= minimum_matches){
                     match_location = i ;
                     break ;                        
                 }                    
