@@ -12,7 +12,7 @@ threadlib= -pthread
 src = $(wildcard source/*.cpp)
 obj = $(patsubst source/%.cpp, build/%.o, $(src))
 
-all: adapter_trim iupac_trim
+all: adapter_trim iupac_trim assign_label
 
 adapter_trim: build/adapter_trim.o
 	-mkdir -p bin/
@@ -21,6 +21,7 @@ adapter_trim: build/adapter_trim.o
 		-Iinclude \
 		-lboost_program_options \
 		-o bin/adapter_trim
+
 iupac_trim: build/iupac_trim.o
 	-mkdir -p bin/
 	$(CC) build/iupac_trim.o $(baseLDFLAGS) $(threadlib) \
@@ -28,6 +29,14 @@ iupac_trim: build/iupac_trim.o
 		-Iinclude \
 		-lboost_program_options \
 		-o bin/iupac_trim
+
+assign_label: build/assign_label.o
+	-mkdir -p bin/
+	$(CC) build/assign_label.o $(baseLDFLAGS) $(threadlib) \
+		-Irwwb \
+		-Iinclude \
+		-lboost_program_options \
+		-o bin/assign_label
 
 
 clean:
